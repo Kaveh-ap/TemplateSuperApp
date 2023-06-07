@@ -14,12 +14,12 @@ export default function Main() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'tomato',
+    backgroundColor: '#fff',
   },
   header: {
     fontSize: 20,
     fontWeight: '900',
-    color: '#fff',
-    marginHorizontal: 20,
+    color: '#000',
+    margin: 20,
   },
 });

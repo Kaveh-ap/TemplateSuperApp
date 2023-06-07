@@ -7,7 +7,8 @@ function getMTab(Tab: any) {
       name="MTab"
       component={MStack}
       options={{
-        tabBarLabel: 'Mini App M',
+        tabBarLabel: 'Feed',
+        headerShown: false,
       }}
     />
   );

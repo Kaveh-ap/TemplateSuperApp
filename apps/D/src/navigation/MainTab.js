@@ -12,6 +12,7 @@ export default function MainTab() {
                 name="MainTab"
                 component={MainStack}
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Home',
                 }}
             />

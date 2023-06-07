@@ -20,6 +20,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '900',
     color: '#000',
-    marginHorizontal: 20,
+    margin: 20,
   },
 });
