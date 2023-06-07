@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json" /* Recommended React Native TSConfig base */,
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "paths": {
+      "@app/*": ["./src/*"],
+    },
+    "types": [
+      "@mobile/client/custom.d.ts",
+      "./custom.d.ts",
+      "@testing-library/jest-native/extend-expect.d.ts",
+      "@types/jest",
+    ]
+  }
+}

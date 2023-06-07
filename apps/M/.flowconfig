@@ -1,0 +1,85 @@
+[include]
+./flow-typed.js.flow
+.*/node_modules/@storybook.*
+[ignore]
+; We fork some components by platform
+.*/*[.]android.js
+webpack.config.mjs
+gnerateExposeTS.mjs
+
+; Ignore templates for 'react-native init'
+<PROJECT_ROOT>/template/.*
+
+; Ignore the Dangerfile
+<PROJECT_ROOT>/bots/dangerfile.js
+
+; Ignore "BUCK" generated dirs
+<PROJECT_ROOT>/\.buckd/
+
+; Flow doesn't support platforms
+.*/Libraries/Utilities/LoadingView.js
+
+[untyped]
+.*/node_modules/@react-native-community/cli/.*/.*
+
+[declarations]
+.*/node_modules/.*
+
+[libs]
+interface.js
+flow/
+
+[options]
+emoji=true
+sharedmemory.heap_size=6421225472
+sharedmemory.hash_table_pow=21
+exact_by_default=true
+
+format.bracket_spacing=false
+
+       module.file_ext=.js
+       module.file_ext=.json
+       module.file_ext=.ios.js
+
+munge_underscores=true
+
+module.name_mapper='^@app\/\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
+module.name_mapper='^@api\(.*\)$' -> '<PROJECT_ROOT>/src/api/\1'
+module.name_mapper='^@components\/\(.*\)$' -> '<PROJECT_ROOT>/src/components/\1'
+module.name_mapper='^@common\/\(.*\)$' -> '<PROJECT_ROOT>/src/components/Common/\1'
+module.name_mapper='^@UIKit\(.*\)$' -> '<PROJECT_ROOT>/src/components/Common/UIKit/\1'
+module.name_mapper='^@redux\(.*\)$' -> '<PROJECT_ROOT>/src/redux/\1'
+module.name_mapper='^@reducers\(.*\)$' -> '<PROJECT_ROOT>/src/reducers/\1'
+module.name_mapper='^@actions\(.*\)$' -> '<PROJECT_ROOT>/src/actions/\1'
+module.name_mapper='^@utilities\(.*\)$' -> '<PROJECT_ROOT>/src/utilities/\1'
+module.name_mapper='^react-native$' -> '<PROJECT_ROOT>/index.js'
+module.name_mapper='^react-native/\(.*\)$' -> '<PROJECT_ROOT>/\1'
+module.name_mapper='^@?[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> '<PROJECT_ROOT>/Libraries/Image/RelativeImageStub'
+
+  suppress_type=$FlowIssue
+  suppress_type=$FlowFixMe
+  suppress_type=$FlowFixMeProps
+suppress_type=$FlowFixMeState
+suppress_type=$FlowFixMeEmpty
+
+[lints]
+sketchy-null-number=warn
+    sketchy-null-mixed=warn
+    sketchy-number=warn
+    untyped-type-import=warn
+nonstrict-import=warn
+deprecated-type=warn
+unsafe-getters-setters=warn
+unnecessary-invariant=warn
+signature-verification-failure=warn
+[strict]
+deprecated-type
+nonstrict-import
+sketchy-null
+unclear-type
+unsafe-getters-setters
+untyped-import
+untyped-type-import
+
+[version]
+^0.151.0

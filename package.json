@@ -1,0 +1,31 @@
+{
+    "name": "mobile",
+    "version": "0.0.1",
+    "description": "Mobile app",
+    "repository": "https://github.com/Kaveh-ap/TemplateSuperApp.git",
+    "author": "",
+    "license": "MIT",
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "apps/*",
+            "packages/*",
+            "client"
+        ]
+    },
+    "scripts": {
+        "start": "npx superApp start",
+        "android": "yarn workspace @mobile/client android",
+        "clean": "find ./ -type d -name 'node_modules' -exec rm -rf '{}' +"
+    },
+    "resolutions": {
+        "metro": "0.73.7",
+        "metro-config": "0.73.7"
+    },
+    "devDependencies": {
+        "@slack/web-api": "^6.8.1",
+        "babel-plugin-transform-inline-environment-variables": "^0.4.4",
+        "lerna": "6.5.1",
+        "archiver": "^5.3.1"
+    }
+}

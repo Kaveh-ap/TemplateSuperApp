@@ -1,0 +1,111 @@
+def is_ready_to_publish(paltform, is_demo = false)
+    base_url = '';
+    if is_demo
+        base_url = '';
+    end
+
+    if paltform == "android"
+        version_name = `node -e 'console.log(fs.readFileSync("..\/android\/app\/build.gradle", "utf8").match(\/(?<=versionName ").*(?="\\n|\\r)\/g)[0])'`.strip
+        build_number = `node -e 'console.log(fs.readFileSync("..\/android\/app\/build.gradle", "utf8").match(\/(?<=versionCode ).*(?=\\n|\\r)\/g)[0])'`.strip
+        puts "create android apk versionName: #{build_number} buildNumber: #{version_name}"
+    end
+
+    response = `curl --location --request GET '#{base_url}/v1/init/?version_code=#{version_name}' \
+    --header 'supernova-optimize-response: 1' --header 'applicationversion: #{build_number}'`
+
+    if response == nil || response == '' || response["\"status\":200,"] == nil
+        is_valid_version = false
+    else
+        is_valid_version = response["force_update"] == nil
+    end
+
+    if is_valid_version
+        puts "✅ App versionName and buildNumber are valid"
+    else
+        raise "❌ App with this versionName:\"#{version_name}\" and buildNumber:\"#{build_number}\" is not allowed to release in public stores"
+    end
+rescue => e
+    raise "❌ App with this versionName: \"#{version_name}\" and buildNumber:\"#{build_number}\" is not allowed to release in public stores"
+end
+
+platform :android do
+    lane :buildApp do |options|
+
+        clean = options[:clean] || true
+        taskType = options[:taskType] || "assemble"
+        flavor =  options[:flavor] || ""
+        buildType = options[:buildType] || "Release"
+
+        is_ready_to_publish "android", options[:demo]
+
+        if clean
+            gradle(
+                task: "clean",
+                project_dir: "./android"
+            )
+        end
+
+        gradle(
+            task: taskType,
+            flavor: flavor,
+            build_type: buildType,
+            project_dir: "./android"
+        )
+
+        APK_LOCATION = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+        
+        if !APK_LOCATION
+            return
+        end
+
+
+        fileName = options[:outputName] || File.basename(APK_LOCATION)
+        filePath = options[:outputPath] || File.dirname(APK_LOCATION)
+        fullPath = "#{filePath}#{fileName}"
+
+
+        if fullPath != APK_LOCATION 
+            sh("mv '#{APK_LOCATION}' '#{fullPath}'")
+        end
+
+    end
+end
+
+
+platform :ios do
+    lane :buildApp do |options|
+
+        clean = options[:clean] || true
+        store = options[:store] || ""
+        buildType = options[:buildType] || "Release"
+        projName = "d"
+        scheme = "d-#{store}"
+        configuration = "#{buildType}-#{store}"
+        exportMethod = options[:exportMethod] || "ad-hoc"
+        outputPath = options[:outputPath] || './ios/build'
+        outputName = options[:outputName] || "d-#{store}"
+    
+       
+
+        is_ready_to_publish "ios", options[:demo]
+        
+        gym(
+            workspace: "./ios/#{projName}.xcworkspace",  
+            # export_options: {
+            #     manifest: {
+            #         appURL: "my app url",
+            #         displayImageURL: "display image url",
+            #         fullSizeImageURL: "full size image url"
+            #     }
+            # }, 
+            export_method: exportMethod, 
+            clean: clean,  
+            configuration: configuration, 
+            scheme: scheme, 
+            output_name: outputName,
+            output_directory: outputPath , 
+            export_xcargs: "-allowProvisioningUpdates",
+            # disable_xcpretty: true
+        )
+    end
+end

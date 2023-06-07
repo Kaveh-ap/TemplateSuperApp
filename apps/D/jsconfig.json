@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/*"],
+      "@api/*": ["src/api/*"],
+      "@components/*": ["src/components/*"],
+      "@common/*": ["src/components/Common/*"],
+      "@UIKit/*": ["src/components/Common/UIKit/*"],
+      "@redux/*": ["src/redux/*"],
+      "@reducers/*": ["src/reducers/*"],
+      "@actions/*": ["src/actions/*"],
+      "@utilities/*": ["src/utilities/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

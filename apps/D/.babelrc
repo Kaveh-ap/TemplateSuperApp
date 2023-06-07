@@ -1,0 +1,51 @@
+{
+  "presets": ["module:metro-react-native-babel-preset"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "extensions": [".js", ".jsx", ".tsx", ".ts", ".json", ".svg", ".png"],
+        "alias": {
+          "@app": "./src",
+          "@api": "./src/api",
+          "@components": "./src/components",
+          "@common": "./src/components/Common",
+          "@UIKit": "./src/components/Common/UIKit",
+          "@redux": "./src/redux",
+          "@reducers": "./src/reducers",
+          "@actions": "./src/actions",
+          "@images": "./src/images",
+          "@utilities": "./src/utilities"
+        }
+      }
+    ],
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    "@babel/plugin-proposal-optional-chaining",
+    [
+      "transform-inline-environment-variables",
+      {
+        "include": ["NODE_ENV"]
+      }
+    ],
+    "react-native-reanimated/plugin"
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        [
+          "transform-react-remove-prop-types",
+          {
+            "removeImport": true,
+            "ignoreFilenames": ["node_modules"]
+          }
+        ]
+      ]
+    }
+  }
+}

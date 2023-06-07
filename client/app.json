@@ -1,0 +1,8 @@
+{
+    "name": "d",
+    "displayName": "d",
+    "orientation": "portrait",
+    "androidStatusBar": {
+        "backgroundColor": "#000000"
+    }
+}

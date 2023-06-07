@@ -1,0 +1,25 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json" /* Recommended React Native TSConfig base */,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "paths": {
+      "react": ["./node_modules/@types/react"],
+      "@pages/*": ["./src/pages/*"],
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
+      "@api": ["./src/api"],
+      "@redux": ["./src/redux"],
+      "@redux/*": ["./src/redux/*"],
+      "@services": ["./src/services"],
+      "@hooks": ["./src/hooks"],
+      "@configs": ["./src/configs"],
+      "@utilities": ["./src/utilities"],
+      "@objects": ["./src/objects"],
+      "@contexts": ["./src/contexts"],
+      "@images/*": ["./src/images/*"],
+      "@nav/*": ["./src/navigation/*"]
+    },
+    "types": ["@testing-library/jest-native/extend-expect.d.ts", "@types/jest", "@mobile/types"]
+  }
+}
